@@ -1,0 +1,29 @@
+{
+  "name": "danyk/php-framework-area",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "danyk",
+      "email": "danykdev@gmail.com"
+    }
+  ],
+  "autoload-dev": {
+    "psr-4": {
+      "danyk\\Framework\\Tests\\": "tests"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "danyk\\Framework\\": "src"
+    }
+  },
+  "require": {
+    "php": "^8.2",
+    "nikic/fast-route": "^1.3",
+    "psr/container": "^2.0@dev"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.2@dev",
+    "symfony/var-dumper": "7.1.x-dev"
+  }
+}
