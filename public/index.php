@@ -2,18 +2,18 @@
 
 define('BASE_PATH', dirname(__DIR__));
 
-require_once BASE_PATH .'/vendor/autoload.php';
+require_once BASE_PATH . '/vendor/autoload.php';
 
 use danyk\Framework\Http\Kernel;
 use danyk\Framework\Http\Request;
-use danyk\Framework\Routing\Router;
 
 $request = Request::createFromGlobals();
 
-$router = new Router();
+/* @var \League\Container\Container $container */
+$container = require BASE_PATH . '/config/services.php';
 
+$kernel = $container->get(Kernel::class);
 
-$kernel = new Kernel($router);
 $response = $kernel->handle($request);
 
 $response->send();
