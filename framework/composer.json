@@ -20,7 +20,7 @@
   "require": {
     "php": "^8.2",
     "nikic/fast-route": "^1.3",
-    "psr/container": "^2.0@dev"
+    "league/container": "^4.2.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^11.2@dev",
