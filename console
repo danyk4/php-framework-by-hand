@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+
+<?php
+
+use danyk\Framework\Console\Kernel;
+
+// 1. Base Path
+
+define('BASE_PATH', dirname(__FILE__));
+
+// 2. Add autoloader
+
+require_once BASE_PATH.'/vendor/autoload.php';
+
+// 3. Add container
+
+/* @var \League\Container\Container $container */
+$container = require BASE_PATH.'/config/services.php';
+
+// 4. Get Kernel of console from container
+
+$kernel = $container->get(Kernel::class);
+
+// 5. Call method handle in Kernel and return code status of console app
+
+$status = $kernel->handle();
+
+// 6. Exit with this status
+
+exit($status);

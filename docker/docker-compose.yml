@@ -1,0 +1,50 @@
+services:
+    app:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        container_name: area-app
+        restart: always
+        working_dir: /var/www/
+        volumes:
+            - ../:/var/www
+        networks:
+            - mynetwork
+    nginx:
+        image: nginx:latest
+        container_name: area-nginx
+        restart: always
+        ports:
+            - "8000:80"
+        volumes:
+            - ../:/var/www
+            - ./nginx:/etc/nginx/conf.d
+        depends_on:
+            - mysql_db
+            - phpmyadmin
+        networks:
+            - mynetwork
+    mysql_db:
+        image: mariadb:10.6
+        restart: always
+        ports:
+            - 3307:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: db
+        volumes:
+            - ./docker/data/db/mysql:/var/lib/mysql
+        networks:
+            - mynetwork
+    phpmyadmin:
+        image: phpmyadmin:latest
+        restart: always
+        ports:
+            - 8080:80
+        environment:
+            - PMA_ARBITRARY=1
+        networks:
+            - mynetwork
+networks:
+    mynetwork:
+        driver: bridge

@@ -1,0 +1,17 @@
+{% extends 'default.html.twig' %}
+{% block main %}
+    <div class="bg-body-tertiary p-5 rounded">
+        <form action="">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" aria-describedby="titleHelp">
+                <div id="titleHelp" class="form-text">Get a valued title for your new Post</div>
+            </div>
+            <div class="mb-3">
+                <label for="body" class="form-label">Content</label>
+                <textarea name="body" id="" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,20 +1,23 @@
 {
-  "autoload": {
-    "psr-4": {
-      "App\\": "app"
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "framework"
+        }
+    ],
+    "require-dev": {
+        "symfony/var-dumper": "^7.0",
+        "laravel/pint": "^1.15"
+    },
+    "require": {
+        "php": "^8.2",
+        "danyk/php-framework-area": "dev-main",
+        "twig/twig": "^3.10",
+        "doctrine/dbal": "^4.1.1"
     }
-  },
-  "repositories": [{
-    "type": "path",
-    "url": "framework"
-  }
-  ],
-  "require-dev": {
-    "symfony/var-dumper": "^7.0",
-    "laravel/pint": "^1.15"
-  },
-  "require": {
-    "php": "^8.2",
-    "danyk/php-framework-area": "dev-main"
-  }
 }
