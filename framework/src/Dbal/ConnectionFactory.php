@@ -18,10 +18,6 @@ class ConnectionFactory
         $dsnParser        = new DsnParser();
         $connectionParams = $dsnParser->parse($this->databaseUrl);
 
-        $connection = DriverManager::getConnection($connectionParams);
-
-        $connection->setAutoCommit(false);
-
-        return $connection;
+        return DriverManager::getConnection($connectionParams);
     }
 }

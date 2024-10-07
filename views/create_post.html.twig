@@ -1,15 +1,16 @@
-{% extends 'default.html.twig' %}
+{% extends 'layouts/default.html.twig' %}
 {% block main %}
     <div class="bg-body-tertiary p-5 rounded">
-        <form action="">
+        {#        {{ session().getFlash('error') }} #}
+        <form action="/posts" method="post">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" aria-describedby="titleHelp">
+                <input type="text" name="title" value="Some title" class="form-control" id="title" aria-describedby="titleHelp" required>
                 <div id="titleHelp" class="form-text">Get a valued title for your new Post</div>
             </div>
             <div class="mb-3">
                 <label for="body" class="form-label">Content</label>
-                <textarea name="body" id="" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="body" id="" cols="30" rows="10" class="form-control" required>Some unusual text</textarea>
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>

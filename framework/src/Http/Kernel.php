@@ -2,8 +2,10 @@
 
 namespace danyk\Framework\Http;
 
+use danyk\Framework\Event\EventDispatcher;
+use danyk\Framework\Http\Events\ResponseEvent;
 use danyk\Framework\Http\Exceptions\HttpException;
-use danyk\Framework\Routing\RouterInterface;
+use danyk\Framework\Http\Middleware\RequestHandlerInterface;
 use League\Container\Container;
 
 class Kernel
@@ -11,8 +13,9 @@ class Kernel
     private string $appEnv = 'local';
 
     public function __construct(
-      private RouterInterface $router,
-      public Container $container
+        public readonly Container $container,
+        private readonly RequestHandlerInterface $requestHandler,
+        private readonly EventDispatcher $eventDispatcher,
     ) {
         $this->appEnv = $this->container->get('APP_ENV');
     }
@@ -20,17 +23,19 @@ class Kernel
     public function handle(Request $request): Response
     {
         try {
-            [$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
-
-            $reponse = call_user_func_array($routeHandler, $vars);
+            $response = $this->requestHandler->handle($request);
         } catch (\Exception $e) {
-            $reponse = $this->createExceptionResponse($e);
+            $response = $this->createExceptionResponse($e);
         }
 
-        return $reponse;
+        $response->setStatusCode(500);
+
+        $this->eventDispatcher->dispatch(new ResponseEvent($request, $response));
+
+        return $response;
     }
 
-    private function createExceptionResponse(\Exception $e)
+    private function createExceptionResponse(\Exception $e): Response
     {
         if (in_array($this->appEnv, ['local', 'testing'])) {
             throw $e;
@@ -40,5 +45,10 @@ class Kernel
         }
 
         return new Response('Server error', 500);
+    }
+
+    public function terminate(Request $request, Response $response): void
+    {
+        $request->getSession()?->clearFlash();
     }
 }

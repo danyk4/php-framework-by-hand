@@ -18,6 +18,7 @@
         "php": "^8.2",
         "danyk/php-framework-area": "dev-main",
         "twig/twig": "^3.10",
-        "doctrine/dbal": "^4.1.1"
+        "doctrine/dbal": "^4.1.1",
+        "psr/event-dispatcher": "^1.0.0"
     }
 }
